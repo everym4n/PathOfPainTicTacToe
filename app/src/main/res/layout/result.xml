@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/result_layout"
+    android:layout_below="@id/ticTacToe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/result_layout"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/padding_result_layout"
+    android:visibility="invisible"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/game_over"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_size_game_over_title" />
+
+    <TextView
+        android:id="@+id/tv_result_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_result_message" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_again"
+            android:text="@string/again"
+            android:backgroundTint="@color/colorButtonAgain"
+            style="@style/StyleButton" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:text="@string/exit"
+            android:backgroundTint="@color/colorButtonExit"
+            style="@style/StyleButton" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,8 +1,6 @@
 package com.andreveryman.tictactoe;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,29 +13,37 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Andrej Russkikh on 10.12.2019.
  */
-public class TicTacToeAdapter extends RecyclerView.Adapter<TicTacToeAdapter.TicTacHolder> {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.TicTacHolder> {
 
-    private TicTacToeField ticTacToeField;
+    private TicTacToeField gameLogicProvider;
     private int size;
     private int row;
     private int turn = 0;
-    private GameListener listener;
+    private GameEndedListener listener;
 
 
 
-    public TicTacToeAdapter(TicTacToeField ticTacToeField, int size, GameListener listener) {
-        this.ticTacToeField = ticTacToeField;
+    public GameAdapter(TicTacToeField ticTacToeField, int size) {
+        this.gameLogicProvider = ticTacToeField;
         this.row = size;
         this.size = size*size;
-        this.listener = listener;
     }
 
 
     public void reset() {
         turn = 0;
-        ticTacToeField.reset();
+        gameLogicProvider.reset();
+        notifyItemRangeChanged(0,size);
     }
 
+    public void setListener(GameEndedListener listener) {
+        this.listener = listener;
+    }
+
+    public void setGameLogicProvider(TicTacToeField gameLogicProvider){
+        this.gameLogicProvider = gameLogicProvider;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -48,9 +54,7 @@ public class TicTacToeAdapter extends RecyclerView.Adapter<TicTacToeAdapter.TicT
     @Override
     public void onBindViewHolder(@NonNull final TicTacHolder holder, final int position) {
 
-        Log.d("TAG", "position = " + position + " " + getRow(position) + " " + getColumn(position));
-        final TicTacToeField.Figure figure = ticTacToeField.getFigure(getRow(position), getColumn(position));
-
+        final TicTacToeField.Figure figure = gameLogicProvider.getFigure(getRow(position), getColumn(position));
         Drawable drawable = null;
         if (figure == TicTacToeField.Figure.CIRCLE)
             drawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.circle);
@@ -63,7 +67,7 @@ public class TicTacToeAdapter extends RecyclerView.Adapter<TicTacToeAdapter.TicT
             @Override
             public void onClick(View view) {
 
-                if (figure != TicTacToeField.Figure.NONE || ticTacToeField.isFull() || TicTacToeField.Figure.NONE != ticTacToeField.getWinner())
+                if (figure != TicTacToeField.Figure.NONE || gameLogicProvider.isFull() || TicTacToeField.Figure.NONE != gameLogicProvider.getWinner())
                     return;
                 turn = (turn + 1) % 2;
                 TicTacToeField.Figure newFigure;
@@ -71,7 +75,7 @@ public class TicTacToeAdapter extends RecyclerView.Adapter<TicTacToeAdapter.TicT
                     newFigure = TicTacToeField.Figure.CROSS;
                 else
                     newFigure = TicTacToeField.Figure.CIRCLE;
-                ticTacToeField.setFigure(getRow(position), getColumn(position), newFigure);
+                gameLogicProvider.setFigure(getRow(position), getColumn(position), newFigure);
                 notifyItemChanged(position);
                 checkIfGameEnded();
 
@@ -83,22 +87,27 @@ public class TicTacToeAdapter extends RecyclerView.Adapter<TicTacToeAdapter.TicT
 
 
     private void checkIfGameEnded() {
-        TicTacToeField.Figure winner = ticTacToeField.getWinner();
+        TicTacToeField.Figure winner = gameLogicProvider.getWinner();
 
         if (winner == TicTacToeField.Figure.NONE) {
-            if (ticTacToeField.isFull()) {
-                listener.gameEnded(TicTacToeField.Figure.NONE);
+            if (gameLogicProvider.isFull()) {
+                postResult(TicTacToeField.Figure.NONE);
             }
             return;
         } else {
             if (winner == TicTacToeField.Figure.CIRCLE) {
-                listener.gameEnded(TicTacToeField.Figure.CIRCLE);
+                postResult(TicTacToeField.Figure.CIRCLE);
             } else {
-                listener.gameEnded(TicTacToeField.Figure.CROSS);
+                postResult(TicTacToeField.Figure.CROSS);
             }
         }
     }
 
+
+    private void postResult(TicTacToeField.Figure result){
+        if(listener!=null)
+            listener.gameEnded(result);
+    }
 
     private int getRow(int position) {
         return position / row;
@@ -120,7 +129,7 @@ public class TicTacToeAdapter extends RecyclerView.Adapter<TicTacToeAdapter.TicT
 
         public TicTacHolder(@NonNull View itemView) {
             super(itemView);
-            image = (ImageView) itemView;
+            image =  (ImageView) itemView;
         }
     }
 }

@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#594486</color>
     <color name="colorAccent">#D81B60</color>
     <color name="button" >#BCC8FF</color>
+    <color name="colorButtonAgain" >#1D66A0</color>
+    <color name="colorButtonExit" >#830600</color>
+    <color name="result_layout" >#ffffff</color>
+    <color name="dividerColor" >#CECECE</color>
+
+
 </resources>

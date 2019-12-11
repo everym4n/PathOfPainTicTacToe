@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_win_counter">24sp</dimen>
+    <dimen name="font_size_game_over_title">28sp</dimen>
+    <dimen name="font_size_result_message">20sp</dimen>
+    <dimen name="font_size_button">20sp</dimen>
+    <dimen name="padding_button">16dp</dimen>
+    <dimen name="padding_result_layout">16dp</dimen>
+</resources>

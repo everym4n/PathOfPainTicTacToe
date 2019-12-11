@@ -2,28 +2,38 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <com.andreveryman.tictactoe.SquareViewGroup
+    <com.andreveryman.tictactoe.GameView
+        android:id="@+id/ticTacToe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </com.andreveryman.tictactoe.SquareViewGroup>
-    <Button
-        android:id="@+id/btn_reset"
-        android:layout_width="match_parent"
-        android:backgroundTint="@color/button"
         android:layout_height="wrap_content"
-        android:text="@string/reset"/>
-</LinearLayout>
+        android:layout_alignParentTop="true"/>
+    <LinearLayout
+        android:id="@+id/layout_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ticTacToe"
+        android:gravity="center"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_zero_wins"
+        android:drawableLeft="@drawable/circle"
+        style="@style/CounterStyle" />
+    <TextView
+        android:id="@+id/tv_cross_wins"
+        style="@style/CounterStyle"
+        android:drawableLeft="@drawable/cross"/>
+    </LinearLayout>
+    <include layout="@layout/result" />
+</RelativeLayout>
+
+
+
 </ScrollView>

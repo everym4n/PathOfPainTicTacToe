@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@android:color/white">
 
-    <com.andreveryman.tictactoe.SquareViewGroup
+    <com.andreveryman.tictactoe.GameView
+        android:id="@+id/ticTacToe"
+        android:layout_alignParentLeft="true"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    </com.andreveryman.tictactoe.SquareViewGroup>
-    <Button
-        android:id="@+id/btn_reset"
-        android:layout_width="wrap_content"
-        android:backgroundTint="@color/button"
-        android:layout_height="wrap_content"
-        android:text="@string/reset"/>
-</LinearLayout>
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_toRightOf="@id/ticTacToe"
+        android:layout_alignParentRight="true"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layout_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_zero_wins"
+                android:drawableLeft="@drawable/circle"
+                style="@style/CounterStyle" />
+            <TextView
+                android:id="@+id/tv_cross_wins"
+                style="@style/CounterStyle"
+                android:drawableLeft="@drawable/cross"/>
+        </LinearLayout>
+        <include layout="@layout/result" />
+
+    </LinearLayout>
+
+</RelativeLayout>
