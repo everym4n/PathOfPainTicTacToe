@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TicTacToe</string>
+    <string name="zero_wins">Нолики побеждают!</string>
+    <string name="cross_wins">Крестики побеждают!</string>
+    <string name="reset">Заново</string>
+    <string name="game_over">Игра окончена!</string>
+    <string name="again">Заново</string>
+    <string name="confirm">Ок</string>
+    <string name="nobody_wins">Ничья</string>
+</resources>
